@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.5 on linux)" generated="2025-07-21T16:03:09.332825" rpa="false" schemaversion="5">
+<suite id="s1" name="Sample1" source="/app/sample1.robot">
+<test id="s1-t1" name="case1" line="13">
+<kw name="Run Process" owner="Process">
+<msg time="2025-07-21T16:03:09.355543" level="INFO">Starting process:
+touch ./hogehoge.txt</msg>
+<msg time="2025-07-21T16:03:09.356075" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-07-21T16:03:09.356831" level="INFO">Process completed.</msg>
+<arg>touch</arg>
+<arg>./hogehoge.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.355440" elapsed="0.001437"/>
+</kw>
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2025-07-21T16:03:09.357197" level="INFO" html="true">File '&lt;a href="file:///app/hogehoge.txt"&gt;/app/hogehoge.txt&lt;/a&gt;' exists.</msg>
+<arg>./hogehoge.txt</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.357106" elapsed="0.000122"/>
+</kw>
+<doc>touchでファイル作成を行う(ファイルの有無の確認もする)</doc>
+<status status="PASS" start="2025-07-21T16:03:09.354790" elapsed="0.002533"/>
+</test>
+<test id="s1-t2" name="case2" line="20">
+<kw name="Run Process" owner="Process">
+<msg time="2025-07-21T16:03:09.357974" level="INFO">Starting process:
+rm ./hogehoge.txt</msg>
+<msg time="2025-07-21T16:03:09.358189" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-07-21T16:03:09.359471" level="INFO">Process completed.</msg>
+<arg>${cmd}</arg>
+<arg>shell=True</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.357857" elapsed="0.001649"/>
+</kw>
+<kw name="File Should Not Exist" owner="OperatingSystem">
+<msg time="2025-07-21T16:03:09.359663" level="INFO" html="true">File '&lt;a href="file:///app/hogehoge.txt"&gt;/app/hogehoge.txt&lt;/a&gt;' does not exist.</msg>
+<arg>./hogehoge.txt</arg>
+<doc>Fails if the given path points to an existing file.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.359587" elapsed="0.000100"/>
+</kw>
+<doc>rmで作成したファイルを削除する(ファイル有無の確認もする)</doc>
+<status status="PASS" start="2025-07-21T16:03:09.357468" elapsed="0.002291"/>
+</test>
+<test id="s1-t3" name="case3" line="27">
+<kw name="ファイル作成">
+<kw name="Run Process" owner="Process">
+<msg time="2025-07-21T16:03:09.360422" level="INFO">Starting process:
+touch ./hogehoge.txt</msg>
+<msg time="2025-07-21T16:03:09.360751" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-07-21T16:03:09.361006" level="INFO">Process completed.</msg>
+<arg>touch</arg>
+<arg>${filepath}</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.360349" elapsed="0.000690"/>
+</kw>
+<arg>./hogehoge.txt</arg>
+<doc>ファイル作成を行う関数</doc>
+<status status="PASS" start="2025-07-21T16:03:09.360204" elapsed="0.000874"/>
+</kw>
+<kw name="ファイルの有無を確認">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${\n}</arg>
+<arg>[exec cmd]ls</arg>
+<arg>${dir}${filename}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.361349" elapsed="0.000139"/>
+</kw>
+<kw name="Run Process" owner="Process">
+<msg time="2025-07-21T16:03:09.361626" level="INFO">Starting process:
+ls ./hogehoge.txt</msg>
+<msg time="2025-07-21T16:03:09.361904" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-07-21T16:03:09.363438" level="INFO">Process completed.</msg>
+<msg time="2025-07-21T16:03:09.363514" level="INFO">${out} = &lt;result object with rc 0&gt;</msg>
+<var>${out}</var>
+<arg>ls</arg>
+<arg>${dir}${filename}</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.361542" elapsed="0.001985"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>[output]${out.stdout}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.363602" elapsed="0.000317"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-07-21T16:03:09.364336" level="INFO">${res} = True</msg>
+<var>${res}</var>
+<arg>'${out.stdout}' != ""</arg>
+<arg>True</arg>
+<arg>False</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.364004" elapsed="0.000348"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>[result]${res}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.364445" elapsed="0.000162"/>
+</kw>
+<return>
+<value>${res}</value>
+<status status="PASS" start="2025-07-21T16:03:09.364642" elapsed="0.000030"/>
+</return>
+<msg time="2025-07-21T16:03:09.364745" level="INFO">${out} = True</msg>
+<var>${out}</var>
+<arg>./</arg>
+<arg>hogehoge.txt</arg>
+<doc>ファイル有無を確認する。</doc>
+<status status="PASS" start="2025-07-21T16:03:09.361214" elapsed="0.003543"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${out}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.364840" elapsed="0.000085"/>
+</kw>
+<kw name="ファイル削除">
+<kw name="Run Process" owner="Process">
+<msg time="2025-07-21T16:03:09.365217" level="INFO">Starting process:
+rm ./hogehoge.txt</msg>
+<msg time="2025-07-21T16:03:09.365545" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-07-21T16:03:09.365827" level="INFO">Process completed.</msg>
+<arg>rm</arg>
+<arg>${filepath}</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.365142" elapsed="0.000723"/>
+</kw>
+<arg>./hogehoge.txt</arg>
+<doc>ファイル削除を行う関数</doc>
+<status status="PASS" start="2025-07-21T16:03:09.365021" elapsed="0.000880"/>
+</kw>
+<kw name="ファイルの有無を確認">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${\n}</arg>
+<arg>[exec cmd]ls</arg>
+<arg>${dir}${filename}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.366162" elapsed="0.000134"/>
+</kw>
+<kw name="Run Process" owner="Process">
+<msg time="2025-07-21T16:03:09.366431" level="INFO">Starting process:
+ls ./hogehoge.txt</msg>
+<msg time="2025-07-21T16:03:09.366719" level="INFO">Waiting for process to complete.</msg>
+<msg time="2025-07-21T16:03:09.368169" level="INFO">Process completed.</msg>
+<msg time="2025-07-21T16:03:09.368233" level="INFO">${out} = &lt;result object with rc 2&gt;</msg>
+<var>${out}</var>
+<arg>ls</arg>
+<arg>${dir}${filename}</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.366348" elapsed="0.001898"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>[output]${out.stdout}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.368309" elapsed="0.000277"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-07-21T16:03:09.368920" level="INFO">${res} = False</msg>
+<var>${res}</var>
+<arg>'${out.stdout}' != ""</arg>
+<arg>True</arg>
+<arg>False</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.368654" elapsed="0.000285"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>[result]${res}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.368998" elapsed="0.000099"/>
+</kw>
+<return>
+<value>${res}</value>
+<status status="PASS" start="2025-07-21T16:03:09.369124" elapsed="0.000026"/>
+</return>
+<msg time="2025-07-21T16:03:09.369210" level="INFO">${out} = False</msg>
+<var>${out}</var>
+<arg>./</arg>
+<arg>hogehoge.txt</arg>
+<doc>ファイル有無を確認する。</doc>
+<status status="PASS" start="2025-07-21T16:03:09.366026" elapsed="0.003195"/>
+</kw>
+<kw name="Should Not Be True" owner="BuiltIn">
+<arg>${out}</arg>
+<doc>Fails if the given condition is true.</doc>
+<status status="PASS" start="2025-07-21T16:03:09.369297" elapsed="0.000081"/>
+</kw>
+<doc>ライブラリを使わずにkeywordで
+
+case1,case2を行う</doc>
+<status status="PASS" start="2025-07-21T16:03:09.359920" elapsed="0.009573"/>
+</test>
+<doc>このテストソースはコマンドを実行するものです。
+
+case1:touchでファイル作成を行う(ファイルができたことの確認もする)
+
+case2:rmで作成したファイルを削除する(ファイルが消えたことの確認もする)</doc>
+<status status="PASS" start="2025-07-21T16:03:09.333293" elapsed="0.036435"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Sample1" id="s1" pass="3" fail="0" skip="0">Sample1</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
